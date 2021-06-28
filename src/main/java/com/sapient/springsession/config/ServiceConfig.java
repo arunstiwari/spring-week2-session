@@ -1,9 +1,7 @@
 package com.sapient.springsession.config;
 
 import com.sapient.springsession.repository.repository.OrderRepository;
-import com.sapient.springsession.service.IOrderService;
-import com.sapient.springsession.service.OrderService;
-import com.sapient.springsession.service.PaymentService;
+import com.sapient.springsession.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,5 +21,15 @@ public class ServiceConfig {
     @Bean
     public PaymentService paymentService(){
         return new PaymentService();
+    }
+
+    @Bean
+    public IShippingService generalShippingService(){
+        return new GeneralShippingService();
+    }
+
+    @Bean
+    public IShippingService primeShippingService(){
+        return new PrimeShippingService();
     }
 }

@@ -31,6 +31,8 @@ public class SpringSessionApplication {
         Order order = orderService.getOrder("order-123");
         System.out.println("order = " + order);
         paymentService.initiatePayment(new PaymentInfo());
+
+        orderService.placeOrder(new Order());
     }
 
 }
