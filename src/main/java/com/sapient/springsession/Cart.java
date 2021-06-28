@@ -1,8 +1,12 @@
 package com.sapient.springsession;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class Cart {
     private List<OrderItem> items = new ArrayList<>();
     public double subtotal() {
