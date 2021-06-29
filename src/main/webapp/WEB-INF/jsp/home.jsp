@@ -8,6 +8,19 @@
     <title>Welcome To Spring MVCS</title>
 </head>
 <body>
+<%! int cube(int n){
+   return n * n *n;
+}%>
+
+<%! String firstName ="abc"; %>
+
 <h1>First JSP Page 2323</h1>
+<%= 5 * 8%>
+<%= new String("Hello World").toUpperCase()%>
+<%= "Cube of 3 is :"+cube(3)%>
+<%= firstName%>
+
+<h3>Port of server : <%= request.getLocalPort()%></h3>
+<h3>Url Context : <%= application.getContextPath()%></h3>
 </body>
 </html>

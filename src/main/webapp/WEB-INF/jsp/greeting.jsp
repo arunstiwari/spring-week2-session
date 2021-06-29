@@ -10,5 +10,6 @@
 <body>
 <h1> Greeting Page</h1>
 <h3>${msg}</h3>
+<h3>Url Context : <%= application.getContextPath()%></h3>
 </body>
 </html>
