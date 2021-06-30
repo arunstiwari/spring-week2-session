@@ -3,10 +3,7 @@ package com.sapient.springsession.advice;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
@@ -52,7 +49,7 @@ public class LoggingAdvice {
 //    }
 
 
-    @Around(POINTCUT1)
+    @Around("@annotation(org.springframework.web.bind.annotation.PostMapping)" )
     public Object logMethodAround(ProceedingJoinPoint jp) throws Throwable {
         log.info("Entering class {} within method {} with arguments {}",
                 jp.getSignature().getDeclaringTypeName(),
@@ -69,4 +66,5 @@ public class LoggingAdvice {
 
         return returnval;
     }
+
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ProductRepository {
@@ -29,5 +30,12 @@ public class ProductRepository {
         product.setId(product.getName());
 
         this.products.add(product);
+    }
+
+    public Product findProductByProductId(String id) {
+        Optional<Product> first = products.stream().filter(product -> product.getId().equals(id)).findFirst();
+        if (first.isPresent())
+            return first.get();
+        return null;
     }
 }
