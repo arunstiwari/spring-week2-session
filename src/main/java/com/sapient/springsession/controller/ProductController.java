@@ -33,7 +33,7 @@ public class ProductController {
     }
 
 
-    @GetMapping("/products")
+    @GetMapping("/show-products")
     public String showListOfProducts(Model model){
         List<Product> products =productService.fetchAllProducts();
         model.addAttribute("products",products);
@@ -53,6 +53,6 @@ public class ProductController {
             return "add-product";
         }
         productService.addProduct(product);
-        return "redirect:products";
+        return "redirect:show-products";
     }
 }
