@@ -15,7 +15,7 @@
 </head>
 <body>
 <div>
-    <a href="/products">Show All Products</a>
+    <a href="/show-products">Show All Products</a>
 </div>
 <div>
     <form:form modelAttribute="product">

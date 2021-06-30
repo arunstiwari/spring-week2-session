@@ -1,6 +1,7 @@
 package com.sapient.springsession.repository;
 
 import com.sapient.springsession.model.Product;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
@@ -24,7 +25,9 @@ public class ProductRepository {
     }
 
     public void saveProduct(Product product) {
+
         product.setId(product.getName());
+
         this.products.add(product);
     }
 }
