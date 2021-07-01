@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public class ProductRepository {
@@ -16,10 +17,10 @@ public class ProductRepository {
 
     @PostConstruct
     public void populateInitialData(){
-        this.products.add(new Product("product-1", "product-1", 10.0));
-        this.products.add(new Product("product-2", "product-2", 5.0));
-        this.products.add(new Product("product-3", "product-3", 10.5));
-        this.products.add(new Product("product-4", "product-4", 20.0));
+        this.products.add(new Product(123, "product-1", 10.0));
+        this.products.add(new Product(124, "product-2", 5.0));
+        this.products.add(new Product(125, "product-3", 10.5));
+        this.products.add(new Product(126, "product-4", 20.0));
     }
 
     public List<Product> fetchAllProducts() {
@@ -28,13 +29,13 @@ public class ProductRepository {
 
     public void saveProduct(Product product) {
 
-        product.setId(product.getName());
+        product.setId(UUID.randomUUID().getLeastSignificantBits());
 
         this.products.add(product);
     }
 
     public Product findProductByProductId(String id) {
-        Optional<Product> first = products.stream().filter(product -> product.getId().equals(id)).findFirst();
+        Optional<Product> first = products.stream().filter(product -> product.getId()== Integer.valueOf(id)).findFirst();
         if (first.isPresent())
             return first.get();
         throw new ProductNotFoundException("Product with id "+id+" is not found");

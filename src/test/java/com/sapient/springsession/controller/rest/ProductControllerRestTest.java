@@ -36,7 +36,7 @@ public class ProductControllerRestTest {
     @Test
     public void shouldAddProductSuccessfully() throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        Product product1 =new Product("product-334","product-334", 40);
+        Product product1 =new Product(334,"product-334", 40);
 
         String product = mapper.writeValueAsString(product1);
 

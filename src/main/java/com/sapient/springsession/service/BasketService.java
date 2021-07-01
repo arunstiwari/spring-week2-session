@@ -30,8 +30,8 @@ public class BasketService {
     public CheckoutResponse checkout(Cart cart) {
         CheckoutResponse response = new CheckoutResponse();
         /**
-         * 1. Validate Order
-         * 1.1 Persist Order
+         * 1. Validate Order -
+         * 1.1 Persist Order -
          * 2. Once order is validated and is successfull, then PaymentProcessing has to be started
          * 3. Once PaymentIsSuccessful, then Confirm the Order
          * 4. Once Order is confirmed, then I will notify ShippingService
@@ -39,7 +39,7 @@ public class BasketService {
          *
          */
         Order order = orderService.persisteOrder(cart.getOrder(), OrderStatus.INITIATED);
-        response.setOrderNo(order.getOrderId());
+        response.setOrderNo(order.getId());
         boolean isValidated = orderValidator.validate(order);
         if (isValidated){
             order.setStatus(OrderStatus.VALIDATED);

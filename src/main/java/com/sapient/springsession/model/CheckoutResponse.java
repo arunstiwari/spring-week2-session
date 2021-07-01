@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 public class CheckoutResponse {
     private String status;
     private String message;
-    private String orderNo;
+    private long orderNo;
 }
