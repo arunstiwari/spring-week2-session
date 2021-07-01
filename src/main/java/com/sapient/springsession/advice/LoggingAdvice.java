@@ -49,7 +49,7 @@ public class LoggingAdvice {
 //    }
 
 
-    @Around("@annotation(org.springframework.web.bind.annotation.PostMapping)" )
+//    @Around("@annotation(org.springframework.web.bind.annotation.PostMapping)" )
     public Object logMethodAround(ProceedingJoinPoint jp) throws Throwable {
         log.info("Entering class {} within method {} with arguments {}",
                 jp.getSignature().getDeclaringTypeName(),

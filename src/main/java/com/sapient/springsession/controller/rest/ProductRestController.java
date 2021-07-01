@@ -1,7 +1,5 @@
 package com.sapient.springsession.controller.rest;
 
-import com.sapient.springsession.exception.ProductNotFoundException;
-import com.sapient.springsession.model.ErrorResponse;
 import com.sapient.springsession.model.Product;
 import com.sapient.springsession.service.ProductService;
 import com.sapient.springsession.validator.ProductValidator;
@@ -9,14 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.server.ResponseStatusException;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -64,12 +57,10 @@ public class ProductRestController  {
 
 
     @PostMapping("/products")
-    public ResponseEntity<String> addProduct(@RequestBody Product product){
+    public ResponseEntity addProduct( @RequestBody Product product){
         log.info("Product to be added : {}",product);
         productService.addProduct(product);
         return new ResponseEntity("Product has been created successfully", HttpStatus.CREATED);
 
     }
-
-
 }
