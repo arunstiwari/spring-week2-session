@@ -53,8 +53,8 @@ public class BasketControllerTest {
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
             )
             .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.status", is("OrderConfirmed")))
-                .andExpect(jsonPath("$.message", is("Order is confirmed and you will soon receive notification")))
+                .andExpect(jsonPath("$.status", is("CONFIRMED")))
+                .andExpect(jsonPath("$.message", is("Order has been processed successfully")))
                 .andExpect(jsonPath("$.orderNo", any(String.class)));
         ;
     }

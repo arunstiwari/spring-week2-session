@@ -11,7 +11,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order {
+    private String orderId;
     private List<OrderItem> items = new ArrayList<>();
+    private OrderStatus status;
 
     public void addOrderItem(OrderItem orderItem) {
         this.items.add(orderItem);
