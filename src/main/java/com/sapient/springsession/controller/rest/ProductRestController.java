@@ -1,5 +1,7 @@
 package com.sapient.springsession.controller.rest;
 
+import com.sapient.springsession.exception.ProductNotFoundException;
+import com.sapient.springsession.model.ErrorResponse;
 import com.sapient.springsession.model.Product;
 import com.sapient.springsession.service.ProductService;
 import com.sapient.springsession.validator.ProductValidator;
@@ -11,13 +13,15 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @Slf4j
-public class ProductRestController {
+public class ProductRestController  {
 
     @Autowired
     private ProductService productService;
@@ -30,17 +34,32 @@ public class ProductRestController {
         binder.setValidator(productValidator);
     }
 
+//    @ExceptionHandler(value = {ProductNotFoundException.class})
+//    protected ResponseEntity<Object> handleException(ProductNotFoundException exception, WebRequest request){
+//        log.error(" exception : {}",exception.getMessage());
+//        ErrorResponse errorResponse = new ErrorResponse();
+//        errorResponse.setStatus(HttpStatus.NOT_FOUND.value());
+//        errorResponse.setInstance("");
+//        errorResponse.setTitle("Searching the Product");
+//        errorResponse.setType(String.valueOf(HttpStatus.NOT_FOUND.value()));
+//        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+//    }
+
 
     @GetMapping("/products")
     public ResponseEntity<List<Product>> showListOfProducts(){
-        List<Product> products =productService.fetchAllProducts();
+        List<Product> products = productService.fetchAllProducts();
         return new ResponseEntity(products, HttpStatus.OK);
     }
 
     @GetMapping("/products/{id}")
-    public ResponseEntity<Product> fetchTheDetailOfSpecificProduct(@PathVariable("id") String id){
-        Product product =productService.fetchSpecificProductById(id);
-        return new ResponseEntity(product, HttpStatus.OK);
+    public ResponseEntity<Object> fetchTheDetailOfSpecificProduct(@PathVariable("id") String id){
+//       try {
+           Product product = productService.fetchSpecificProductById(id);
+           return new ResponseEntity(product, HttpStatus.OK);
+//       }catch (ProductNotFoundException exception){
+//           throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product with Id "+id+ "Not found", exception);
+//       }
     }
 
 

@@ -1,5 +1,6 @@
 package com.sapient.springsession.repository;
 
+import com.sapient.springsession.exception.ProductNotFoundException;
 import com.sapient.springsession.model.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -36,6 +37,6 @@ public class ProductRepository {
         Optional<Product> first = products.stream().filter(product -> product.getId().equals(id)).findFirst();
         if (first.isPresent())
             return first.get();
-        return null;
+        throw new ProductNotFoundException("Product with id "+id+" is not found");
     }
 }
