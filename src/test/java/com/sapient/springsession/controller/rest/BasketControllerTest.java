@@ -1,10 +1,7 @@
 package com.sapient.springsession.controller.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sapient.springsession.model.Cart;
-import com.sapient.springsession.model.CreditCardInfo;
-import com.sapient.springsession.model.Order;
-import com.sapient.springsession.model.OrderItem;
+import com.sapient.springsession.model.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -12,6 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.Matchers.any;
 import static org.hamcrest.Matchers.is;
@@ -30,20 +30,29 @@ public class BasketControllerTest {
     public void checkoutOrder() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         Cart cart = new Cart();
-        Order order = new Order();
-        OrderItem orderItem = new OrderItem();
-        String productId = "product-1";
-        orderItem.setItemName(productId);
+//        Order order = new Order();
+//        OrderItem orderItem = new OrderItem();
+//        long productId = 123;
+//        orderItem.setProductId(productId);
+//        double itemPrice = 5.0;
+//        orderItem.setPrice(itemPrice);
+//        int itemQuantity = 2;
+//        orderItem.setQuantity(itemQuantity);
+//        order.addOrderItem(orderItem);
+
+        CartItem cartItem = new CartItem();
+        long productId = 123;
+        cartItem.setProductId(productId);
         double itemPrice = 5.0;
-        orderItem.setItemPrice(itemPrice);
+        cartItem.setPrice(itemPrice);
         int itemQuantity = 2;
-        orderItem.setItemQuantity(itemQuantity);
-        order.addOrderItem(orderItem);
-        cart.setOrder(order);
-        String customerId = "customer-1";
+        cartItem.setQuantity(itemQuantity);
+
+        List<CartItem> cartItems = new ArrayList<>();
+        cartItems.add(cartItem);
+        cart.setCartItems(cartItems);
+        long customerId = 2323;
         cart.setCustomerId(customerId);
-        CreditCardInfo creditCardInfo = new CreditCardInfo();
-        cart.setCreditCardInfo(creditCardInfo);
         String checkoutData = objectMapper.writeValueAsString(cart);
         System.out.println("checkoutData = " + checkoutData);
 

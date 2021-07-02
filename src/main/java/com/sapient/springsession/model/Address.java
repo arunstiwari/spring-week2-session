@@ -14,7 +14,11 @@ import javax.persistence.*;
 @Table(name = "address")
 public class Address  extends AuditModel{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_product")
+    @SequenceGenerator(
+            name = "seq_product",
+            allocationSize = 1
+    )
     private long id;
 
     private String city;

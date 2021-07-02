@@ -17,7 +17,11 @@ import java.util.List;
 @Table(name = "users")
 public class User extends AuditModel{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_product")
+    @SequenceGenerator(
+            name = "seq_product",
+            allocationSize = 1
+    )
     private long id;
 
     private String name;

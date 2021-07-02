@@ -12,14 +12,14 @@ public class OrderRepository {
     List<Order> orders = new ArrayList<>();
 
     public Order saveOrder(Order order) {
-        order.setOrderId(UUID.randomUUID().toString());
+//        order.setOrderId(UUID.randomUUID().toString());
         orders.add(order);
         return order;
     }
 
     public void updateOrderStatus(Order order) {
         orders.stream().forEach(order1 -> {
-            if (order1.getOrderId().equals(order.getOrderId()))
+//            if (order1.getOrderId().equals(order.getOrderId()))
                 order1.setStatus(order.getStatus());
         });
     }

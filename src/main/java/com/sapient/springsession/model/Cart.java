@@ -1,16 +1,26 @@
 package com.sapient.springsession.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cart {
+@Entity
+@Table(name = "carts")
+public class Cart extends AuditModel {
 
-    private Order order;
-    private String customerId;
-    private CreditCardInfo creditCardInfo;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    private List<CartItem> cartItems ;
+
+    private long customerId;
 }
