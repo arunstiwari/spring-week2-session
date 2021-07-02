@@ -5,6 +5,7 @@ import com.sapient.springsession.model.OrderStatus;
 import com.sapient.springsession.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.UUID;
 
