@@ -5,10 +5,7 @@ import com.sapient.springsession.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +26,12 @@ public class UserControlller {
     public ResponseEntity addUser(@RequestBody User user){
         User savedUser = userService.addUser(user);
         return new ResponseEntity(savedUser, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity deleteUser(@PathVariable("id") long id){
+            userService.deleteUser(id);
+        return new ResponseEntity("User has been deleted successfully", HttpStatus.OK);
     }
 
 
