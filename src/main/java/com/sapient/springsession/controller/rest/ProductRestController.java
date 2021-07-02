@@ -45,11 +45,21 @@ public class ProductRestController  {
         return new ResponseEntity(products, HttpStatus.OK);
     }
 
-    @GetMapping("/products/{id}")
-    public ResponseEntity<Object> fetchTheDetailOfSpecificProduct(@PathVariable("id") String id){
+//    @GetMapping("/products/{id}")
+//    public ResponseEntity<Object> fetchTheDetailOfSpecificProduct(@PathVariable("id") long id){
+////       try {
+//           Product product = productService.fetchSpecificProductById(id);
+//           return new ResponseEntity(product, HttpStatus.OK);
+////       }catch (ProductNotFoundException exception){
+////           throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product with Id "+id+ "Not found", exception);
+////       }
+//    }
+
+    @GetMapping("/products/{name}")
+    public ResponseEntity<Object> fetchTheDetailOfSpecificProductByName(@PathVariable("name") String name){
 //       try {
-           Product product = productService.fetchSpecificProductById(id);
-           return new ResponseEntity(product, HttpStatus.OK);
+        Product product = productService.fetchSpecificProductByName(name);
+        return new ResponseEntity(product, HttpStatus.OK);
 //       }catch (ProductNotFoundException exception){
 //           throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product with Id "+id+ "Not found", exception);
 //       }

@@ -50,7 +50,7 @@ class ProductRestControllerTest {
     @Test
     void addProduct() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        Product product1 =new Product("product-234","product-234", 40);
+        Product product1 =new Product(234,"product-234", 40);
 
         String product = mapper.writeValueAsString(product1);
 
