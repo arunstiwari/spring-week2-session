@@ -39,11 +39,13 @@ public class ProductRestController  {
 //    }
 
 
-    @GetMapping("/products")
+    @GetMapping("/products ")
     public ResponseEntity<List<Product>> showListOfProducts(){
         List<Product> products = productService.fetchAllProducts();
         return new ResponseEntity(products, HttpStatus.OK);
     }
+
+
 
 //    @GetMapping("/products/{id}")
 //    public ResponseEntity<Object> fetchTheDetailOfSpecificProduct(@PathVariable("id") long id){

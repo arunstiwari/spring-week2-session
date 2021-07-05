@@ -1,18 +1,15 @@
-package com.sapient.springsession.service;
+package com.sapient.springsession.mongodb.service;
 
 import com.sapient.springsession.model.*;
+import com.sapient.springsession.service.*;
 import com.sapient.springsession.validator.OrderValidator;
-import com.sapient.springsession.validator.ProductValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-
 @Slf4j
 @Service
-public class BasketService {
-
+public class BasketMongodbService {
     @Autowired
     private OrderValidator orderValidator;
     @Autowired
@@ -69,9 +66,9 @@ public class BasketService {
             boolean isPaymentSuccessfull = paymentService.initiatePayment(creditCardInfo);
             if (isPaymentSuccessfull){
                 order.setStatus(OrderStatus.CONFIRMED);
-               Order updatedOrder = orderService.updateOrderStatus(order);
+                Order updatedOrder = orderService.updateOrderStatus(order);
                 Thread.sleep(10000);
-              boolean isCartDeleted =  cartService.deleteCart(cartId);
+                boolean isCartDeleted =  cartService.deleteCart(cartId);
                 log.info(" isCartDeleted: {}",isCartDeleted);
                 Thread.sleep(10000);
                 shippingService.notifyNewOrder(updatedOrder);

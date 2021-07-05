@@ -46,6 +46,7 @@ public class ProductController {
         return "add-product";
     }
 
+
     @PostMapping("/add-product")
     public String addProduct(@Valid @ModelAttribute("product") Product product, BindingResult result){
 
