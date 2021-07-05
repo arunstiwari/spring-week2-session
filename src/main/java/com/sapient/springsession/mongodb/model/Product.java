@@ -18,6 +18,6 @@ public class Product {
     private String name;
     private double price;
 
-//    @DBRef
+    @DBRef
     private ProductCategory category;
 }

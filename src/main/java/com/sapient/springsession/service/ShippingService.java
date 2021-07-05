@@ -11,4 +11,8 @@ public class ShippingService {
     public void notifyNewOrder(Order order) {
       log.info("Received new order {}",order);
     }
+
+    public void notifyNewMongodbOrder(com.sapient.springsession.mongodb.model.Order updatedOrder) {
+        log.info("Received new order {}",updatedOrder);
+    }
 }

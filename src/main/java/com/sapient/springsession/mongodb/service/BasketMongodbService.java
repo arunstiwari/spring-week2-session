@@ -1,6 +1,11 @@
 package com.sapient.springsession.mongodb.service;
 
-import com.sapient.springsession.model.*;
+import com.sapient.springsession.model.CheckoutResponse;
+import com.sapient.springsession.model.CreditCardInfo;
+import com.sapient.springsession.model.OrderStatus;
+import com.sapient.springsession.mongodb.model.Cart;
+import com.sapient.springsession.mongodb.model.Order;
+import com.sapient.springsession.mongodb.model.OrderItem;
 import com.sapient.springsession.service.*;
 import com.sapient.springsession.validator.OrderValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +21,7 @@ public class BasketMongodbService {
     private PaymentService paymentService;
 
     @Autowired
-    private OrderService orderService;
+    private OrderMongodbService orderService;
 
     @Autowired
     private ShippingService shippingService;
@@ -25,9 +30,9 @@ public class BasketMongodbService {
     private MailService mailService;
 
     @Autowired
-    private CartService cartService;
+    private CartMongodbService cartService;
 
-    public CheckoutResponse checkout(long cartId, CreditCardInfo creditCardInfo) throws InterruptedException {
+    public CheckoutResponse checkout(String cartId, CreditCardInfo creditCardInfo) throws InterruptedException {
         CheckoutResponse response = new CheckoutResponse();
         /**
          * 0 First get the cartInfo from the database
@@ -49,34 +54,33 @@ public class BasketMongodbService {
             item.setProductId(cartItem.getProductId());
             item.setPrice(cartItem.getPrice());
             item.setQuantity(cartItem.getQuantity());
-            item.setOrder(order);
             order.addOrderItem(item);
             log.info(" order: {}", order);
         });
-        order.setStatus(OrderStatus.INITIATED);
+        order.setStatus(OrderStatus.INITIATED.name());
         Order persistedOrder = orderService.placeOrder(order);
         Thread.sleep(20000);
         response.setOrderNo(String.valueOf(persistedOrder.getId()));
-        boolean isValidated = orderValidator.validate(persistedOrder);
+        boolean isValidated = orderValidator.validateMongodbOrder(persistedOrder);
 
         if (isValidated){
-            persistedOrder.setStatus(OrderStatus.VALIDATED);
+            persistedOrder.setStatus(OrderStatus.VALIDATED.name());
             orderService.updateOrderStatus(persistedOrder);
             Thread.sleep(10000);
             boolean isPaymentSuccessfull = paymentService.initiatePayment(creditCardInfo);
             if (isPaymentSuccessfull){
-                order.setStatus(OrderStatus.CONFIRMED);
+                order.setStatus(OrderStatus.CONFIRMED.name());
                 Order updatedOrder = orderService.updateOrderStatus(order);
                 Thread.sleep(10000);
                 boolean isCartDeleted =  cartService.deleteCart(cartId);
                 log.info(" isCartDeleted: {}",isCartDeleted);
                 Thread.sleep(10000);
-                shippingService.notifyNewOrder(updatedOrder);
+                shippingService.notifyNewMongodbOrder(updatedOrder);
                 mailService.sendMail(String.valueOf(cart.getId()));
                 response.setStatus(OrderStatus.CONFIRMED.name());
                 response.setMessage("Order has been processed successfully");
             }else{
-                order.setStatus(OrderStatus.NOT_CONFIRMED);
+                order.setStatus(OrderStatus.NOT_CONFIRMED.name());
                 orderService.updateOrderStatus(persistedOrder);
                 response.setMessage("Payment Failed");
                 response.setStatus(OrderStatus.NOT_CONFIRMED.name());

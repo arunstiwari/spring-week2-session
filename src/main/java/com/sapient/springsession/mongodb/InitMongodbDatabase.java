@@ -56,8 +56,8 @@ public class InitMongodbDatabase {
         repository.save(user1);
 
         List<ProductCategory> productCategories = List.of(
-                new ProductCategory("Electronics"),
-                new ProductCategory("Toys")
+                new ProductCategory(null,"Electronics"),
+                new ProductCategory(null,"Toys")
         );
 
 //        productCategoryRepository.saveAll(productCategories);
